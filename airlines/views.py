@@ -28,3 +28,9 @@ def book(request, flight_id):
     return render(request, "airlines/book.html", {
         "flight": flight
     })
+
+def remove_booking(request, flight_id, passenger_id):
+    flight = Flight.objects.get(pk=flight_id)
+    passenger = Passenger.objects.get(pk=passenger_id)
+    passenger.flights.remove(flight)
+    return redirect("airlines:flight", flight_id=flight_id)
